@@ -13,3 +13,6 @@
 *.ipr
 *.iws
 .idea/
+out/
+
+*.bak
