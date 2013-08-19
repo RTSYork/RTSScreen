@@ -10,49 +10,51 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet screen.css?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns:fx="http://javafx.com/fxml" fx:controller="screen.Controller">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" xmlns:fx="http://javafx.com/fxml" fx:controller="screen.ScreenController">
   <center>
     <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="10.0">
       <children>
-        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="blue" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
-        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Demo 1" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <TextArea fx:id="console" editable="false" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Console text" wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="1" />
+        <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+        <Label fx:id="title" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Demo 1" GridPane.columnIndex="0" GridPane.rowIndex="1">
           <font>
             <Font name="System Bold" size="26.0" />
           </font>
         </Label>
-        <Label alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna mi, luctus et viverra nec, eleifend vitae tortor. Aliquam vitae luctus massa. Quisque tempor aliquam lectus ac aliquet. Mauris vel risus sapien. Nullam dictum diam urna, ac vulputate lectus tempus id. Morbi tincidunt nisl elit, ac commodo ligula vehicula quis. Pellentesque congue eleifend lacinia. Etiam consequat, ante eget vulputate tristique, orci nulla porta magna, consequat viverra magna enim a quam. Suspendisse rhoncus odio ante, sed bibendum tellus accumsan eu. Pellentesque a rutrum neque, et condimentum nulla. Maecenas mattis laoreet semper. Donec est urna, dignissim et augue vitae, porttitor sollicitudin ipsum. Suspendisse pulvinar ante quam, non dignissim libero vestibulum in. Nam porta blandit mauris ac consectetur. Sed venenatis nisl lectus, sit amet mattis lectus venenatis eu. Suspendisse non dui quis felis bibendum blandit et at ante." wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2">
+        <Label fx:id="description" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin urna mi, luctus et viverra nec, eleifend vitae tortor. Aliquam vitae luctus massa. Quisque tempor aliquam lectus ac aliquet. Mauris vel risus sapien. Nullam dictum diam urna, ac vulputate lectus tempus id. Morbi tincidunt nisl elit, ac commodo ligula vehicula quis. Pellentesque congue eleifend lacinia. Etiam consequat, ante eget vulputate tristique, orci nulla porta magna, consequat viverra magna enim a quam. Suspendisse rhoncus odio ante, sed bibendum tellus accumsan eu. Pellentesque a rutrum neque, et condimentum nulla. Maecenas mattis laoreet semper. Donec est urna, dignissim et augue vitae, porttitor sollicitudin ipsum. Suspendisse pulvinar ante quam, non dignissim libero vestibulum in. Nam porta blandit mauris ac consectetur. Sed venenatis nisl lectus, sit amet mattis lectus venenatis eu. Suspendisse non dui quis felis bibendum blandit et at ante." wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2">
           <font>
             <Font size="18.0" />
           </font>
         </Label>
-        <ImageView fitHeight="139.5" fitWidth="186.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
-          <image>
-            <Image url="@../../resources/atlys.jpg" preserveRatio="false" smooth="false" />
-          </image>
+        <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+          <children>
+            <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+          </children>
           <GridPane.margin>
             <Insets />
           </GridPane.margin>
-        </ImageView>
+        </AnchorPane>
       </children>
       <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" percentWidth="70.0" />
-        <ColumnConstraints hgrow="SOMETIMES" percentWidth="30.0" />
+        <ColumnConstraints hgrow="SOMETIMES" />
+        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />
       </columnConstraints>
       <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
       </padding>
       <rowConstraints>
         <RowConstraints percentHeight="60.0" vgrow="SOMETIMES" />
-        <RowConstraints fillHeight="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints vgrow="SOMETIMES" />
+        <RowConstraints fillHeight="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
   </center>
   <right>
-    <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+    <GridPane id="rightColumn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
       <children>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" scaleX="0.22" scaleY="0.22" translateX="30.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" scaleX="0.22" scaleY="0.22" translateX="15.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
           <children>
             <fx:include source="rts.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
           </children>
@@ -60,6 +62,11 @@
             <Insets />
           </GridPane.margin>
         </AnchorPane>
+        <VBox fx:id="demosBox" alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
+          <padding>
+            <Insets bottom="20.0" left="20.0" top="20.0" />
+          </padding>
+        </VBox>
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />

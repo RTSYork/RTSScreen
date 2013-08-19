@@ -2,6 +2,19 @@
     -fx-background-color: #f0f0f0;
 }
 
-.blue {
-    -fx-background-color: #0000ff;
+#console {
+    -fx-background-color: #1E1E23;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
+    -fx-border-color: #000000;
+    -fx-font-family: monospace;
+    -fx-font-size: 14pt;
+    -fx-text-fill: #EEEEEE;
+    -fx-padding: 10px;
+}
+
+#rightColumn {
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 0 2px;
+    -fx-border-color: #aaa;
 }
