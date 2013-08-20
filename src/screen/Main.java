@@ -1,5 +1,6 @@
 package screen;
 
+import com.google.gson.reflect.TypeToken;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -12,8 +13,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.io.*;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import com.google.gson.Gson;
 
 public class Main extends Application {
 
@@ -38,20 +45,17 @@ public class Main extends Application {
         ScreenController controller = (ScreenController)fxmlLoader.getController();
         controller.setupScreen();
 
-        demos.add(new Demo("Guitar Hero on FPGA",
-                "The Autocaster is an embedded system based around a Digilent Atlys FPGA board, developed by Russell Joyce as a final year project for the MEng Computer Science with Embedded Systems Engineering course.\n\n" +
-                "The project's original title was 'Guitar Hero on FPGA', which evolved into a system that can autonomously play both Rock Band and Guitar Hero games running on a PlayStation 3.\n\n" +
-                "The demo above shows the real-time controller output of the system while monitoring the HDMI graphics from a games console.",
-                "atlys.jpg"));
+        // Parse JSON file of demos
+        Gson gson = new Gson();
+        Reader reader = new InputStreamReader(getClass().getResourceAsStream("demos.json"));
+        List<Map> results = gson.fromJson(reader, List.class);
 
-        demos.add(new Demo("Ultrasonic Array for Maze Robot",
-                "The ultrasonic maze robot was developed by Phil Greenland for a final year project in Computer Science with Embedded Systems Engineering, with the aim of creating a robot to navigate a maze using ultrasonic sdensors.\n\n" +
-                "The system developed consists of four main components: an FPGA development board which can be seen sat on top of the platform; a mobile platform on which everything is mounted; sensor boards which perform" +
-                "the ultrasound generation and capture as part of the ultrasonic imaging system; and a mainboard which provides an interface between the FPGA, mobile platform and sensor boards while containing additional hardware required by the ultrasonic imaging system.",
-                "usrobot.jpg"));
+        for (Map result : results) {
+            Demo demo = new Demo(result);
+            demos.add(demo);
+            controller.addDemoBox(demo);
+        }
 
-        controller.addDemoBox(demos.get(0));
-        controller.addDemoBox(demos.get(1));
         controller.setupActiveDemo(demos.get(0));
 
         primaryStage.setScene(scene);
@@ -60,10 +64,10 @@ public class Main extends Application {
 
         controller.appendConsoleLine("Testing, 123");
 
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ESCAPE)
+                scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent keyEvent) {
+                        if (keyEvent.getCode() == KeyCode.ESCAPE)
                     primaryStage.setFullScreen(true);
             }
         });

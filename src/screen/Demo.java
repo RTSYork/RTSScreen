@@ -7,19 +7,34 @@ import javafx.scene.image.Image;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 
 public class Demo {
     private String mTitle;
     private String mDescription;
     private String mImageName;
+    private String mType;
+    private int mPort;
+
     private Image mImage;
     private Node mDemoBox;
     private boolean mActive;
 
-    public Demo(String title, String description, String image) {
+    public Demo(String title, String description, String image, String type, int port) {
         mTitle = title;
         mDescription = description;
         mImageName = image;
+        mType = type;
+        mPort = port;
+        mActive = false;
+    }
+
+    public Demo(Map params) {
+        mTitle = (String)params.get("title");
+        mDescription = (String)params.get("description");
+        mImageName = (String)params.get("image");
+        mType =(String)params.get("type");
+        mPort = ((Double)params.get("port")).intValue();
         mActive = false;
     }
 
