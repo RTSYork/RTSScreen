@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 
-public class ScreenController {
+public class ScreenController implements UDPServerCallback {
 
     public ImageView imageView;
     public VBox demosBox;
@@ -23,7 +23,13 @@ public class ScreenController {
     public Label description;
 
     public void setupScreen() throws IOException {
+        UDPServer udpTest = new UDPServer(0xF00D, this);
+        udpTest.startListening();
+    }
 
+    @Override
+    public void updateImage(Image image) {
+        imageView.setImage(image);
     }
 
     public void setupActiveDemo(Demo demo) {
