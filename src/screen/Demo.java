@@ -7,24 +7,36 @@ import javafx.scene.image.Image;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Demo {
     private String mTitle;
     private String mDescription;
     private String mImageName;
-    private String mType;
+    private ArrayList<String> mTypes;
+    private Map<String, Object> mOptions;
     private int mPort;
 
     private Image mImage;
     private Node mDemoBox;
     private boolean mActive;
 
-    public Demo(String title, String description, String image, String type, int port) {
+    public static final String ConsoleType = "console";
+    public static final String GraphicsType = "graphics";
+    public static final String VideoType = "video";
+
+    public static final String GraphicsWidthOption = "graphicsWidth";
+    public static final String GraphicsHeightOption = "graphicsHeight";
+    public static final String VideoIdOption = "videoId";
+    public static final String VideoDurationOption = "videoDuration";
+
+    public Demo(String title, String description, String image, ArrayList<String> types, Map<String, Object> options, int port) {
         mTitle = title;
         mDescription = description;
         mImageName = image;
-        mType = type;
+        mTypes = types;
+        mOptions = options;
         mPort = port;
         mActive = false;
     }
@@ -33,7 +45,8 @@ public class Demo {
         mTitle = (String)params.get("title");
         mDescription = (String)params.get("description");
         mImageName = (String)params.get("image");
-        mType =(String)params.get("type");
+        mTypes =(ArrayList<String>)params.get("types");
+        mOptions =(Map<String, Object>)params.get("options");
         mPort = ((Double)params.get("port")).intValue();
         mActive = false;
     }
@@ -56,6 +69,30 @@ public class Demo {
 
     public String getImageName() {
         return mImageName;
+    }
+
+    public int getPort() {
+        return mPort;
+    }
+
+    public ArrayList<String> getTypes() {
+        return mTypes;
+    }
+
+    public boolean hasType(String type) {
+        return mTypes.contains(type);
+    }
+
+    public Map<String, Object> getOptions() {
+        return mOptions;
+    }
+
+    public boolean hasOption(String option) {
+        return mOptions.containsKey(option);
+    }
+
+    public Object getOptionValue(String option) {
+        return mOptions.get(option);
     }
 
     public Image getImage() {

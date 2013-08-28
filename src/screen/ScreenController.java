@@ -1,12 +1,19 @@
 package screen;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
+import javafx.event.EventHandler;
+import javafx.scene.CacheHint;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEvent;
+import javafx.scene.web.WebView;
+import netscape.javascript.JSObject;
 
 import java.io.IOException;
 
@@ -14,25 +21,22 @@ public class ScreenController implements UDPServerCallback {
 
     public ImageView imageView;
     public VBox demosBox;
-    public TextArea console;
     public Label title;
     public Label description;
     public BorderPane demoContent;
+    private TextArea demoConsole;
     private Canvas demoCanvas;
-    private UDPServer mUdpTest;
+    private WebView demoWebView;
+    private UDPServer mUdpServer;
 
 
     public void setupScreen() throws IOException {
-        demoCanvas = new Canvas();
-        demoContent.setCenter(demoCanvas);
 
-        mUdpTest = new UDPServer(0xF00D, this);
-        mUdpTest.startListening();
     }
 
     public void closeScreen() {
-        if (mUdpTest != null)
-            mUdpTest.stopListening();
+        if (mUdpServer != null)
+            mUdpServer.stopListening();
     }
 
     @Override
@@ -42,14 +46,82 @@ public class ScreenController implements UDPServerCallback {
 
     @Override
     public TextArea getDemoConsole() {
-        return console;
+        return demoConsole;
     }
 
-    public void setupActiveDemo(Demo demo) {
+    public void resetDemoScreen() {
+        if (mUdpServer != null) {
+            mUdpServer.stopListening();
+            mUdpServer = null;
+        }
+
+        if (demoCanvas != null)
+            demoCanvas = null;
+
+        if (demoConsole != null)
+            demoConsole = null;
+
+        if (demoWebView != null)
+            demoWebView = null;
+
+        demoContent.getChildren().clear();
+    }
+
+    public void setupActiveDemo(Demo demo) throws IOException {
+        resetDemoScreen();
+
         imageView.setImage(demo.getImage());
         title.setText(demo.getTitle());
         description.setText(demo.getDescription());
-        clearConsole();
+
+        boolean hasConsole = false;
+        boolean hasGraphics = false;
+        int graphicsWidth = 0;
+        int graphicsHeight = 0;
+
+        if (demo.hasType(Demo.ConsoleType)) {
+            hasConsole = true;
+
+            demoConsole = new TextArea();
+            demoConsole.setEditable(false);
+            demoConsole.setFocusTraversable(false);
+            demoConsole.setWrapText(true);
+            demoConsole.getStyleClass().add("console");
+            demoContent.setCenter(demoConsole);
+        }
+
+        if (demo.hasType(Demo.GraphicsType)) {
+            hasGraphics = true;
+            graphicsWidth = ((Double)demo.getOptionValue(Demo.GraphicsWidthOption)).intValue();
+            graphicsHeight = ((Double)demo.getOptionValue(Demo.GraphicsHeightOption)).intValue();
+
+            demoCanvas = new Canvas();
+            demoCanvas.setCache(true);
+            demoCanvas.setCacheHint(CacheHint.SPEED);
+            demoCanvas.setWidth(graphicsWidth);
+            demoCanvas.setHeight(graphicsHeight);
+            demoContent.setRight(demoCanvas);
+        }
+
+        if (demo.hasType(Demo.VideoType)) {
+            demoWebView = new WebView();
+            demoWebView.getEngine().getLoadWorker().stateProperty().addListener(
+                    new ChangeListener<Worker.State>() {
+                        public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
+                            if (newState == Worker.State.SUCCEEDED) {
+                                demoWebView.getEngine().executeScript("function onChange() {player1.setPlaybackQuality('hd1080');player1.setPlaybackQuality('hd1080');player1.setPlaybackQuality('hd1080');player1.setPlaybackQuality('hd1080');}setTimeout(function(){player1.addEventListener('onStateChange', 'onChange');onChange();}, 1000);");
+                            }
+                        }
+                    });
+            String videoId = (String)demo.getOptionValue(Demo.VideoIdOption);
+            String videoUrl = String.format("http://www.youtube.com/embed/%s?playlist=%s&rel=0&controls=0&disablekb=1&hd=1&showinfo=0&modestbranding=1&loop=1&fs=0&enablejsapi=1&playerapiid=player1&autoplay=1", videoId, videoId);
+            demoWebView.getEngine().load(videoUrl);
+
+            demoContent.setCenter(demoWebView);
+        }
+
+        mUdpServer = new UDPServer(demo.getPort(), graphicsWidth, graphicsHeight, hasGraphics, hasConsole, this);
+        mUdpServer.startListening();
     }
 
     public void addDemoBox(Demo demo) throws IOException {
@@ -57,18 +129,22 @@ public class ScreenController implements UDPServerCallback {
     }
 
     public void appendConsoleText(String text) {
-        console.appendText(text);
+        if (demoConsole != null)
+            demoConsole.appendText(text);
     }
 
     public void appendConsoleLine(String text) {
-        console.appendText("\n" + text);
+        if (demoConsole != null)
+            demoConsole.appendText(text + "\n");
     }
 
     public void setConsoleText(String text) {
-        console.setText(text);
+        if (demoConsole != null)
+            demoConsole.setText(text);
     }
 
     public void clearConsole() {
-        console.clear();
+        if (demoConsole != null)
+            demoConsole.clear();
     }
 }

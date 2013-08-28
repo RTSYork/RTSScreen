@@ -16,7 +16,6 @@
   <center>
     <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="10.0">
       <children>
-        <TextArea fx:id="console" editable="false" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Console text" wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.rowSpan="1" />
         <BorderPane fx:id="demoContent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
         <Label fx:id="title" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Demo 1" GridPane.columnIndex="0" GridPane.rowIndex="1">
           <font>

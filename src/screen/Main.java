@@ -24,6 +24,7 @@ public class Main extends Application {
 
     ArrayList<Demo> demos = new ArrayList<Demo>();
     ScreenController screenController;
+    int activeDemo;
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
@@ -55,7 +56,8 @@ public class Main extends Application {
             screenController.addDemoBox(demo);
         }
 
-        screenController.setupActiveDemo(demos.get(0));
+        activeDemo = -1;
+        nextDemo();
 
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
@@ -72,6 +74,11 @@ public class Main extends Application {
                     primaryStage.close();
             }
         });
+    }
+
+    public void nextDemo() throws IOException {
+        activeDemo++;
+        screenController.setupActiveDemo(demos.get(activeDemo));
     }
 
     @Override
