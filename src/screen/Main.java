@@ -1,6 +1,5 @@
 package screen;
 
-import com.google.gson.reflect.TypeToken;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +13,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,11 +62,13 @@ public class Main extends Application {
 
         controller.appendConsoleLine("Testing, 123");
 
-                scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent keyEvent) {
-                        if (keyEvent.getCode() == KeyCode.ESCAPE)
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.F && keyEvent.isControlDown())
                     primaryStage.setFullScreen(true);
+                else if (keyEvent.getCode() == KeyCode.Q && keyEvent.isControlDown())
+                    primaryStage.close();
             }
         });
     }
