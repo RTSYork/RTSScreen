@@ -3,21 +3,37 @@
 		"title": "Guitar Hero on FPGA",
 		"description": "The Autocaster is an embedded system based around a Digilent Atlys FPGA board, developed by Russell Joyce as a final year project for the MEng Computer Science with Embedded Systems Engineering course.\n\nThe project's original title was 'Guitar Hero on FPGA', which evolved into a system that can autonomously play both Rock Band and Guitar Hero games running on a PlayStation 3.\n\nThe demo above shows the real-time controller output of the system while monitoring the HDMI graphics from a games console.",
 		"image": "atlys.jpg",
-		"type": "console",
+		"types": [
+		    "console",
+		    "graphics"
+		],
+		"options": {
+		    "graphicsWidth": 440,
+		    "graphicsHeight": 360
+		},
 		"port": 61453
 	},
 	{
 		"title": "Ultrasonic Array for Maze Robot",
-		"description": "The ultrasonic maze robot was developed by Phil Greenland for a final year project in Computer Science with Embedded Systems Engineering, with the aim of creating a robot to navigate a maze using ultrasonic sdensors. The system developed consists of four main components: an FPGA development board which can be seen sat on top of the platform; a mobile platform on which everything is mounted; sensor boards which perform the ultrasound generation and capture as part of the ultrasonic imaging system; and a mainboard which provides an interface between the FPGA, mobile platform and sensor boards while containing additional hardware required by the ultrasonic imaging system.",
+		"description": "The ultrasonic maze robot was developed by Phil Greenland for a final year project in Computer Science with Embedded Systems Engineering, with the aim of creating a robot to navigate a maze using ultrasonic sensors.\n\nThe system developed consists of four main components: an FPGA development board which can be seen sat on top of the platform; a mobile platform on which everything is mounted; sensor boards which perform the ultrasound generation and capture as part of the ultrasonic imaging system; and a mainboard which provides an interface between the FPGA, mobile platform and sensor boards while containing additional hardware required by the ultrasonic imaging system.",
 		"image": "usrobot.jpg",
-		"type": "console",
+		"types": [
+            "video"
+        ],
+        "options": {
+            "videoId": "m_UIUqkca68",
+            "videoDuration": 51
+        },
 		"port": 61454
 	},
 	{
 		"title": "Demo 3",
 		"description": "Testing another demo",
-		"image": "atlys.jpg",
-		"type": "console",
+		"image": "audio.jpg",
+		"types": [
+            "console"
+        ],
+        "options": {},
 		"port": 61455
 	}
 ]
