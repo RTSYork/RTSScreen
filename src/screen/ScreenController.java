@@ -1,9 +1,6 @@
 package screen;
 
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.JavaFXBuilderFactory;
-import javafx.scene.Node;
-import javafx.scene.Parent;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -12,7 +9,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class ScreenController implements UDPServerCallback {
 
@@ -21,15 +17,32 @@ public class ScreenController implements UDPServerCallback {
     public TextArea console;
     public Label title;
     public Label description;
+    public BorderPane demoContent;
+    private Canvas demoCanvas;
+    private UDPServer mUdpTest;
+
 
     public void setupScreen() throws IOException {
-        UDPServer udpTest = new UDPServer(0xF00D, this);
-        udpTest.startListening();
+        demoCanvas = new Canvas();
+        demoContent.setCenter(demoCanvas);
+
+        mUdpTest = new UDPServer(0xF00D, this);
+        mUdpTest.startListening();
+    }
+
+    public void closeScreen() {
+        if (mUdpTest != null)
+            mUdpTest.stopListening();
     }
 
     @Override
-    public void updateImage(Image image) {
-        imageView.setImage(image);
+    public Canvas getDemoCanvas() {
+        return demoCanvas;
+    }
+
+    @Override
+    public TextArea getDemoConsole() {
+        return console;
     }
 
     public void setupActiveDemo(Demo demo) {

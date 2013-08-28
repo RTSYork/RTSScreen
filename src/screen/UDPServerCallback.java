@@ -1,7 +1,9 @@
 package screen;
 
-import javafx.scene.image.Image;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.control.TextArea;
 
 public interface UDPServerCallback {
-    public void updateImage(Image image);
+    public Canvas getDemoCanvas();
+    public TextArea getDemoConsole();
 }

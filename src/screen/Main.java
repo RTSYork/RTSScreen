@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 public class Main extends Application {
 
     ArrayList<Demo> demos = new ArrayList<Demo>();
+    ScreenController screenController;
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
@@ -40,8 +41,8 @@ public class Main extends Application {
         Rectangle2D r = Screen.getPrimary().getBounds();
         Scene scene = new Scene(root, r.getWidth(), r.getHeight());
 
-        ScreenController controller = (ScreenController)fxmlLoader.getController();
-        controller.setupScreen();
+        screenController = fxmlLoader.getController();
+        screenController.setupScreen();
 
         // Parse JSON file of demos
         Gson gson = new Gson();
@@ -51,16 +52,16 @@ public class Main extends Application {
         for (Map result : results) {
             Demo demo = new Demo(result);
             demos.add(demo);
-            controller.addDemoBox(demo);
+            screenController.addDemoBox(demo);
         }
 
-        controller.setupActiveDemo(demos.get(0));
+        screenController.setupActiveDemo(demos.get(0));
 
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
         primaryStage.show();
 
-        controller.appendConsoleLine("Testing, 123");
+        screenController.appendConsoleLine("Testing, 123");
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -73,6 +74,12 @@ public class Main extends Application {
         });
     }
 
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        screenController.closeScreen();
+        System.exit(0);
+    }
 
     public static void main(String[] args) {
         launch(args);
