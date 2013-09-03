@@ -1,6 +1,7 @@
 package screen;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
@@ -14,9 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.google.gson.Gson;
 
@@ -25,6 +24,7 @@ public class Main extends Application {
     ArrayList<Demo> demos = new ArrayList<Demo>();
     ScreenController screenController;
     int activeDemo;
+    Timer demoTimer = new Timer();
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
@@ -56,6 +56,8 @@ public class Main extends Application {
             screenController.addDemoBox(demo);
         }
 
+        demoTimer = new Timer();
+
         activeDemo = -1;
         nextDemo();
 
@@ -74,11 +76,43 @@ public class Main extends Application {
                     primaryStage.close();
             }
         });
+
+
     }
 
-    public void nextDemo() throws IOException {
+    public void nextDemo() {
         activeDemo++;
-        screenController.setupActiveDemo(demos.get(activeDemo));
+        if (activeDemo >= demos.size())
+            activeDemo = 0;
+
+        if (!Platform.isFxApplicationThread()) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        screenController.setupActiveDemo(demos.get(activeDemo));
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+        else {
+            try {
+                screenController.setupActiveDemo(demos.get(activeDemo));
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        demoTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                nextDemo();
+            }
+        }, demos.get(activeDemo).getDuration() * 1000);
     }
 
     @Override
