@@ -120,8 +120,10 @@ public class ScreenController implements UDPServerCallback {
             demoContent.setCenter(demoWebView);
         }
 
-        mUdpServer = new UDPServer(demo.getPort(), graphicsWidth, graphicsHeight, hasGraphics, hasConsole, this);
-        mUdpServer.startListening();
+        if (hasGraphics || hasConsole) {
+            mUdpServer = new UDPServer(demo.getPort(), graphicsWidth, graphicsHeight, hasGraphics, hasConsole, this);
+            mUdpServer.startListening();
+        }
     }
 
     public void addDemoBox(Demo demo) throws IOException {

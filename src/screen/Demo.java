@@ -16,6 +16,7 @@ public class Demo {
     private String mImageName;
     private ArrayList<String> mTypes;
     private Map<String, Object> mOptions;
+    private int mDuration;
     private int mPort;
 
     private Image mImage;
@@ -29,14 +30,14 @@ public class Demo {
     public static final String GraphicsWidthOption = "graphicsWidth";
     public static final String GraphicsHeightOption = "graphicsHeight";
     public static final String VideoIdOption = "videoId";
-    public static final String VideoDurationOption = "videoDuration";
 
-    public Demo(String title, String description, String image, ArrayList<String> types, Map<String, Object> options, int port) {
+    public Demo(String title, String description, String image, ArrayList<String> types, Map<String, Object> options, int duration, int port) {
         mTitle = title;
         mDescription = description;
         mImageName = image;
         mTypes = types;
         mOptions = options;
+        mDuration = duration;
         mPort = port;
         mActive = false;
     }
@@ -47,6 +48,7 @@ public class Demo {
         mImageName = (String)params.get("image");
         mTypes =(ArrayList<String>)params.get("types");
         mOptions =(Map<String, Object>)params.get("options");
+        mDuration = ((Double)params.get("duration")).intValue();;
         mPort = ((Double)params.get("port")).intValue();
         mActive = false;
     }
@@ -69,6 +71,10 @@ public class Demo {
 
     public String getImageName() {
         return mImageName;
+    }
+
+    public int getDuration() {
+        return mDuration;
     }
 
     public int getPort() {
