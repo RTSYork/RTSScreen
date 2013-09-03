@@ -11,6 +11,7 @@
 		    "graphicsWidth": 440,
 		    "graphicsHeight": 360
 		},
+		"duration": 20,
 		"port": 61453
 	},
 	{
@@ -21,10 +22,10 @@
             "video"
         ],
         "options": {
-            "videoId": "m_UIUqkca68",
-            "videoDuration": 51
+            "videoId": "m_UIUqkca68"
         },
-		"port": 61454
+        "duration": 56,
+		"port": 0
 	},
 	{
 		"title": "Demo 3",
@@ -34,6 +35,7 @@
             "console"
         ],
         "options": {},
-		"port": 61455
+        "duration": 10,
+		"port": 61454
 	}
 ]
