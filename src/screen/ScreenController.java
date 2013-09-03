@@ -64,7 +64,11 @@ public class ScreenController implements UDPServerCallback {
         if (demoWebView != null)
             demoWebView = null;
 
-        demoContent.getChildren().clear();
+        demoContent.setCenter(null);
+        demoContent.setLeft(null);
+        demoContent.setRight(null);
+        demoContent.setTop(null);
+        demoContent.setBottom(null);
     }
 
     public void setupActiveDemo(Demo demo) throws IOException {
