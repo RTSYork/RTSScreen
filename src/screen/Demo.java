@@ -5,8 +5,12 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.file.FileSystem;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -103,8 +107,19 @@ public class Demo {
 
     public Image getImage() {
         if (mImage == null) {
-            String imageUrl = getClass().getResource(mImageName).toString();
-            mImage = new Image(imageUrl, true);
+
+            if (new File(mImageName).isFile()) {
+                mImage = new Image(mImageName, true);
+            }
+            else {
+                try {
+                    String imageUrl = getClass().getResource(mImageName).toString();
+                    mImage = new Image(imageUrl, true);
+                }
+                catch (Exception e) {
+                    mImage = null;
+                }
+            }
         }
         return mImage;
     }

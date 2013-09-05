@@ -47,7 +47,13 @@ public class Main extends Application {
 
         // Parse JSON file of demos
         Gson gson = new Gson();
-        Reader reader = new InputStreamReader(getClass().getResourceAsStream("demos.json"));
+        Reader reader;
+        try {
+            reader = new InputStreamReader(new FileInputStream("demos.json"));
+        }
+        catch (IOException e) {
+            reader = new InputStreamReader(getClass().getResourceAsStream("demos.json"));
+        }
         List<Map> results = gson.fromJson(reader, List.class);
 
         for (Map result : results) {
