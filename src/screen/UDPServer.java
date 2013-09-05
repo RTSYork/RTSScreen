@@ -8,6 +8,7 @@ import javafx.scene.image.PixelFormat;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritablePixelFormat;
 
+import java.io.UnsupportedEncodingException;
 import java.net.*;
 import java.nio.IntBuffer;
 import java.util.Arrays;
@@ -17,6 +18,7 @@ public class UDPServer extends ExtasysUDPServer {
 
     private int mPort;
     private int[] mImageData;
+    private String mStringData;
     private boolean mListening;
     private int mFrameWidth;
     private int mFrameHeight;
@@ -76,10 +78,18 @@ public class UDPServer extends ExtasysUDPServer {
         //receiving.acquireUninterruptibly();
 
         mData = packet.getData();
+        int y = ((mData[1] & 0xFF) << 8) | (mData[0] & 0xFF);
 
-        if (mHasGraphics) {
-            int y = ((mData[1] & 0xFF) << 8) | (mData[0] & 0xFF);
-
+        if (mHasConsole && y == 0xFFFF) {
+            try {
+                mStringData = new String(mData, 2, mData.length - 2, "Cp437");
+            }
+            catch (UnsupportedEncodingException e) {
+                mStringData = new String(mData, 2, mData.length - 2);
+            }
+            mConsole.setText(mStringData);
+        }
+        else if (mHasGraphics && y < 0xFFFF) {
             int x = 0;
             for (int i = 2; i < mData.length; i+=2) {
                 mImageData[x + (y * mFrameWidth)] = 0xFF000000 | ((mData[i+1] & 0xF8) << 16) | (((mData[i+1] & 0x07) << 13) | ((mData[i] & 0xE0) << 5)) | ((mData[i] & 0x1F) << 3);
