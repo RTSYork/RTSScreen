@@ -24,7 +24,8 @@ public class Main extends Application {
     ArrayList<Demo> demos = new ArrayList<Demo>();
     ScreenController screenController;
     int activeDemo;
-    Timer demoTimer = new Timer();
+    Timer demoTimer;
+    TimerTask demoTimerTask;
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
@@ -80,6 +81,10 @@ public class Main extends Application {
                     primaryStage.setFullScreen(true);
                 else if (keyEvent.getCode() == KeyCode.Q && keyEvent.isControlDown())
                     primaryStage.close();
+                else if (keyEvent.getCode() == KeyCode.RIGHT)
+                    nextDemo();
+                else if (keyEvent.getCode() == KeyCode.LEFT)
+                    previousDemo();
             }
         });
 
@@ -87,6 +92,9 @@ public class Main extends Application {
     }
 
     public void nextDemo() {
+        if (demoTimerTask != null)
+            demoTimerTask.cancel();
+
         activeDemo++;
         if (activeDemo >= demos.size())
             activeDemo = 0;
@@ -113,12 +121,25 @@ public class Main extends Application {
             }
         }
 
-        demoTimer.schedule(new TimerTask() {
+        demoTimerTask = new TimerTask() {
             @Override
             public void run() {
                 nextDemo();
             }
-        }, demos.get(activeDemo).getDuration() * 1000);
+        };
+
+        demoTimer.schedule(demoTimerTask, demos.get(activeDemo).getDuration() * 1000);
+
+        System.gc();
+    }
+
+    public void previousDemo() {
+        if (activeDemo == 0)
+            activeDemo = demos.size() - 2;
+        else
+            activeDemo -= 2;
+
+        nextDemo();
     }
 
     @Override
