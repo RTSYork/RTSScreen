@@ -72,8 +72,6 @@ public class Main extends Application {
         primaryStage.setFullScreen(true);
         primaryStage.show();
 
-        screenController.appendConsoleLine("Testing, 123");
-
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {

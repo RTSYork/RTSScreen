@@ -30,7 +30,7 @@ public class ScreenController implements UDPServerCallback {
     private UDPServer mUdpServer;
 
 
-    public void setupScreen() throws IOException {
+    public void setupScreen() {
 
     }
 
@@ -112,7 +112,7 @@ public class ScreenController implements UDPServerCallback {
             demoWebView.getEngine().getLoadWorker().stateProperty().addListener(
                     new ChangeListener<Worker.State>() {
                         public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
-                            if (newState == Worker.State.SUCCEEDED) {
+                            if (newState == Worker.State.SUCCEEDED && demoWebView != null) {
                                 demoWebView.getEngine().executeScript("function onChange() {player1.setPlaybackQuality('hd1080');player1.setPlaybackQuality('hd1080');player1.setPlaybackQuality('hd1080');player1.setPlaybackQuality('hd1080');}setTimeout(function(){player1.addEventListener('onStateChange', 'onChange');onChange();}, 1000);");
                             }
                         }
