@@ -9,19 +9,22 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="280.0" style="-fx-border-style: solid;&#10;-fx-border-width: 1px 0;&#10;-fx-border-color: #ccc;" xmlns:fx="http://javafx.com/fxml" fx:controller="screen.DemoController">
+<BorderPane fx:id="demoBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="350.0" styleClass="demoBox" xmlns:fx="http://javafx.com/fxml" fx:controller="screen.DemoController">
   <bottom>
     <Label fx:id="titleLabel" text="Demo X">
       <font>
         <Font name="System Bold" size="16.0" />
       </font>
+      <BorderPane.margin>
+        <Insets left="10.0" />
+      </BorderPane.margin>
     </Label>
   </bottom>
   <center>
-    <ImageView fx:id="imageView" fitHeight="220.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-        <Image url="@atlys.jpg" preserveRatio="false" smooth="false" />
-      </image>
+    <ImageView fx:id="imageView" fitHeight="220.0" fitWidth="330.0" pickOnBounds="true" preserveRatio="true">
+      <BorderPane.margin>
+        <Insets />
+      </BorderPane.margin>
     </ImageView>
   </center>
   <padding>

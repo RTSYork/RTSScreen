@@ -8,7 +8,8 @@
     -fx-border-width: 1px;
     -fx-border-color: #000000;
     -fx-font-family: monospace;
-    -fx-font-size: 14pt;
+    -fx-font-weight: bold;
+    -fx-font-size: 17pt;
     -fx-text-fill: #EEEEEE;
     -fx-padding: 10px;
 }
@@ -17,4 +18,10 @@
     -fx-border-style: solid;
     -fx-border-width: 0 0 0 2px;
     -fx-border-color: #aaa;
+}
+
+.demoBox {
+    -fx-border-style: solid;
+    -fx-border-width: 1px 0;
+    -fx-border-color: #ccc;
 }

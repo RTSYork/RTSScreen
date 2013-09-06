@@ -17,7 +17,7 @@
     <GridPane hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="10.0">
       <children>
         <BorderPane fx:id="demoContent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
-        <Label fx:id="title" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Demo 1" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <Label fx:id="title" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Demo 1" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
           <font>
             <Font name="System Bold" size="26.0" />
           </font>
@@ -29,23 +29,23 @@
         </Label>
         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
           <children>
-            <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ImageView fx:id="imageView" fitHeight="380.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
           </children>
           <GridPane.margin>
-            <Insets />
+            <Insets left="40.0" />
           </GridPane.margin>
         </AnchorPane>
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" />
-        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />
+        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
       </columnConstraints>
       <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
       </padding>
       <rowConstraints>
         <RowConstraints percentHeight="60.0" vgrow="SOMETIMES" />
-        <RowConstraints fillHeight="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints fillHeight="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
@@ -53,7 +53,7 @@
   <right>
     <GridPane id="rightColumn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
       <children>
-        <AnchorPane prefHeight="200.0" prefWidth="200.0" scaleX="0.22" scaleY="0.22" translateX="15.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+        <AnchorPane prefHeight="250.0" prefWidth="250.0" scaleX="0.22" scaleY="0.22" translateX="15.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
           <children>
             <fx:include source="rts.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
           </children>
@@ -63,12 +63,12 @@
         </AnchorPane>
         <VBox fx:id="demosBox" alignment="TOP_CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
           <padding>
-            <Insets bottom="20.0" left="20.0" top="20.0" />
+            <Insets bottom="20.0" left="10.0" top="20.0" />
           </padding>
         </VBox>
       </children>
       <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="350.0" />
       </columnConstraints>
       <padding>
         <Insets bottom="20.0" right="20.0" />
