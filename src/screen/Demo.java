@@ -26,6 +26,7 @@ public class Demo {
     private Image mImage;
     private Node mDemoBox;
     private boolean mActive;
+    private DemoController mController;
 
     public static final String ConsoleType = "console";
     public static final String GraphicsType = "graphics";
@@ -59,6 +60,7 @@ public class Demo {
 
     public void setActive(boolean active) {
         mActive = active;
+        mController.setHighlighted(active);
     }
 
     public boolean getActive() {
@@ -131,8 +133,8 @@ public class Demo {
             fxmlLoader.setLocation(location);
             fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
             mDemoBox = (Node)fxmlLoader.load(location.openStream());
-            DemoController c = (DemoController)fxmlLoader.getController();
-            c.setupDemo(mTitle, getImage());
+            mController = (DemoController)fxmlLoader.getController();
+            mController.setupDemo(mTitle, getImage());
         }
         return mDemoBox;
     }

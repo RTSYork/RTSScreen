@@ -97,6 +97,9 @@ public class Main extends Application {
         if (activeDemo >= demos.size())
             activeDemo = 0;
 
+        for (int i = 0; i < demos.size(); i++)
+            demos.get(i).setActive(i == activeDemo);
+
         if (!Platform.isFxApplicationThread()) {
             Platform.runLater(new Runnable() {
                 @Override
