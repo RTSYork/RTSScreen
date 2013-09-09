@@ -3,7 +3,6 @@ package screen;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
-import javafx.event.EventHandler;
 import javafx.scene.CacheHint;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
@@ -11,9 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
-import netscape.javascript.JSObject;
 
 import java.io.IOException;
 
