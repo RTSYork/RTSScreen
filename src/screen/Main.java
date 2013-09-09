@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -67,6 +68,8 @@ public class Main extends Application {
 
         activeDemo = -1;
         nextDemo();
+
+        scene.setCursor(Cursor.NONE);
 
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
