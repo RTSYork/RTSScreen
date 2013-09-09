@@ -2,12 +2,14 @@ package screen;
 
 import Extasys.Network.UDP.Server.ExtasysUDPServer;
 import Extasys.Network.UDP.Server.Listener.UDPListener;
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritablePixelFormat;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
 import java.nio.IntBuffer;
@@ -75,7 +77,7 @@ public class UDPServer extends ExtasysUDPServer {
     @Override
     public void OnDataReceive(UDPListener listener, DatagramPacket packet)
     {
-        //receiving.acquireUninterruptibly();
+        receiving.acquireUninterruptibly();
 
         mData = packet.getData();
         int y = ((mData[1] & 0xFF) << 8) | (mData[0] & 0xFF);
@@ -87,7 +89,13 @@ public class UDPServer extends ExtasysUDPServer {
             catch (UnsupportedEncodingException e) {
                 mStringData = new String(mData, 2, mData.length - 2);
             }
-            mConsole.setText(mStringData);
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                        mConsole.setText(mStringData);
+                }
+            });
         }
         else if (mHasGraphics && y < 0xFFFF) {
             int x = 0;
@@ -102,7 +110,7 @@ public class UDPServer extends ExtasysUDPServer {
             }
         }
 
-        //receiving.release();
+        receiving.release();
     }
 
     private void updateImage() {
