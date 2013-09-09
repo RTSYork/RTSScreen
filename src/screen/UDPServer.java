@@ -106,7 +106,7 @@ public class UDPServer extends ExtasysUDPServer {
     }
 
     private void updateImage() {
-        mPixelWriter.setPixels(0, 0, mFrameWidth, mFrameHeight, mPixelFormat, mImageData, 0, mFrameWidth);
+        mPixelWriter.setPixels(20, 20, mFrameWidth, mFrameHeight, mPixelFormat, mImageData, 0, mFrameWidth);
 
         if (gcCounter == gcInterval) {
             System.gc();

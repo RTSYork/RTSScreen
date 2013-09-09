@@ -102,8 +102,8 @@ public class ScreenController implements UDPServerCallback {
             demoCanvas = new Canvas();
             demoCanvas.setCache(true);
             demoCanvas.setCacheHint(CacheHint.SPEED);
-            demoCanvas.setWidth(graphicsWidth);
-            demoCanvas.setHeight(graphicsHeight);
+            demoCanvas.setWidth(graphicsWidth + 20);
+            demoCanvas.setHeight(graphicsHeight + 20);
             demoContent.setRight(demoCanvas);
         }
 
