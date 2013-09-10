@@ -30,7 +30,7 @@ public class UDPServer extends ExtasysUDPServer {
     private byte[] mData;
     private UDPServerCallback mController;
     private final Semaphore receiving = new Semaphore(1);
-    private final int gcInterval = 120;
+    private final int gcInterval = 500;
     private int gcCounter = 0;
     private boolean mHasGraphics;
     private boolean mHasConsole;
@@ -46,7 +46,7 @@ public class UDPServer extends ExtasysUDPServer {
         if (mHasGraphics) {
             mCanvas = mController.getDemoCanvas();
             mPixelWriter = mCanvas.getGraphicsContext2D().getPixelWriter();
-            mPixelFormat = PixelFormat.getIntArgbPreInstance();
+            mPixelFormat = PixelFormat.getIntArgbInstance();
         }
         if (mHasConsole) {
             mConsole = mController.getDemoConsole();
@@ -113,7 +113,13 @@ public class UDPServer extends ExtasysUDPServer {
     }
 
     private void updateImage() {
-        mPixelWriter.setPixels(20, 20, mFrameWidth, mFrameHeight, mPixelFormat, mImageData, 0, mFrameWidth);
+        try {
+            mPixelWriter.setPixels(20, 20, mFrameWidth, mFrameHeight, mPixelFormat, mImageData, 0, mFrameWidth);
+        }
+        catch (Exception e) {
+            System.out.println("Image update error");
+            e.printStackTrace();
+        }
 
         if (gcCounter == gcInterval) {
             System.gc();
