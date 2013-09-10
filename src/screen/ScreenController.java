@@ -32,8 +32,10 @@ public class ScreenController implements UDPServerCallback {
     }
 
     public void closeScreen() {
-        if (mUdpServer != null)
+        if (mUdpServer != null) {
             mUdpServer.stopListening();
+            mUdpServer.Dispose();
+        }
     }
 
     @Override
@@ -49,6 +51,7 @@ public class ScreenController implements UDPServerCallback {
     public void resetDemoScreen() {
         if (mUdpServer != null) {
             mUdpServer.stopListening();
+            mUdpServer.Dispose();
             mUdpServer = null;
         }
 
