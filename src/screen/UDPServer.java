@@ -9,7 +9,6 @@ import javafx.scene.image.PixelFormat;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritablePixelFormat;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
 import java.nio.IntBuffer;

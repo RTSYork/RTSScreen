@@ -131,6 +131,10 @@ public class ScreenController implements UDPServerCallback {
         demosBox.getChildren().add(demo.getDemoBox());
     }
 
+    public void clearDemoBoxes() {
+        demosBox.getChildren().clear();
+    }
+
     public void appendConsoleText(String text) {
         if (demoConsole != null)
             demoConsole.appendText(text);

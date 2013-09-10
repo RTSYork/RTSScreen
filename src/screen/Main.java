@@ -22,11 +22,12 @@ import com.google.gson.Gson;
 
 public class Main extends Application {
 
-    ArrayList<Demo> demos = new ArrayList<Demo>();
+    ArrayList<Demo> demos;
     ScreenController screenController;
     int activeDemo;
     Timer demoTimer;
     TimerTask demoTimerTask;
+    List<Map> jsonResults;
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
@@ -48,21 +49,7 @@ public class Main extends Application {
         screenController.setupScreen();
 
         // Parse JSON file of demos
-        Gson gson = new Gson();
-        Reader reader;
-        try {
-            reader = new InputStreamReader(new FileInputStream("demos.json"));
-        }
-        catch (IOException e) {
-            reader = new InputStreamReader(getClass().getResourceAsStream("demos.json"));
-        }
-        List<Map> results = gson.fromJson(reader, List.class);
-
-        for (Map result : results) {
-            Demo demo = new Demo(result);
-            demos.add(demo);
-            screenController.addDemoBox(demo);
-        }
+        loadJson();
 
         demoTimer = new Timer();
 
@@ -92,49 +79,73 @@ public class Main extends Application {
 
     }
 
+    public void loadJson() {
+        Gson gson = new Gson();
+        Reader reader;
+        try {
+            reader = new InputStreamReader(new FileInputStream("demos.json"));
+        }
+        catch (IOException e) {
+            reader = new InputStreamReader(getClass().getResourceAsStream("demos.json"));
+        }
+        List<Map> results = gson.fromJson(reader, List.class);
+
+        if (jsonResults == null || !results.equals(jsonResults)) {
+            demos = new ArrayList<Demo>();
+            screenController.clearDemoBoxes();
+            screenController.resetDemoScreen();
+
+            for (Map result : results) {
+                Demo demo = new Demo(result);
+                demos.add(demo);
+                try {
+                    screenController.addDemoBox(demo);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            jsonResults = results;
+        }
+    }
+
+
     public void nextDemo() {
         if (demoTimerTask != null)
             demoTimerTask.cancel();
 
-        activeDemo++;
-        if (activeDemo >= demos.size())
-            activeDemo = 0;
-
-        for (int i = 0; i < demos.size(); i++)
-            demos.get(i).setActive(i == activeDemo);
-
-        if (!Platform.isFxApplicationThread()) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        screenController.setupActiveDemo(demos.get(activeDemo));
-                    }
-                    catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-        else {
-            try {
-                screenController.setupActiveDemo(demos.get(activeDemo));
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        demoTimerTask = new TimerTask() {
+        Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                nextDemo();
+                try {
+                    activeDemo++;
+                    if (activeDemo >= demos.size()) {
+                        activeDemo = 0;
+                        loadJson();
+                    }
+
+                    for (int i = 0; i < demos.size(); i++)
+                        demos.get(i).setActive(i == activeDemo);
+
+                    screenController.setupActiveDemo(demos.get(activeDemo));
+
+                    demoTimerTask = new TimerTask() {
+                        @Override
+                        public void run() {
+                            nextDemo();
+                        }
+                    };
+
+                    demoTimer.schedule(demoTimerTask, demos.get(activeDemo).getDuration() * 1000);
+
+                    System.gc();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        };
-
-        demoTimer.schedule(demoTimerTask, demos.get(activeDemo).getDuration() * 1000);
-
-        System.gc();
+        });
     }
 
     public void previousDemo() {
