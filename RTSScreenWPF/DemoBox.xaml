@@ -1,0 +1,29 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="RTSScreenWPF.DemoBox"
+	x:Name="UserControl"
+	d:DesignWidth="640" d:DesignHeight="480" Width="Auto">
+	<UserControl.Resources>
+		<Storyboard x:Key="highlight">
+			<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="LayoutRoot">
+				<EasingColorKeyFrame KeyTime="0" Value="#00CCCCCC"/>
+				<EasingColorKeyFrame KeyTime="0:0:0.5" Value="#FFCCCCCC"/>
+			</ColorAnimationUsingKeyFrames>
+		</Storyboard>
+		<Storyboard x:Key="unhighlight">
+			<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="LayoutRoot">
+				<EasingColorKeyFrame KeyTime="0" Value="#FFCCCCCC"/>
+				<EasingColorKeyFrame KeyTime="0:0:0.5" Value="#00CCCCCC"/>
+			</ColorAnimationUsingKeyFrames>
+		</Storyboard>
+	</UserControl.Resources>
+
+	<Grid x:Name="LayoutRoot" Background="#00CCCCCC">
+		<Image x:Name="image" Margin="8,8,8,34.83"/>
+		<Label x:Name="title" Content="Demo Title" VerticalAlignment="Bottom" Margin="8,0" FontSize="18.667"/>
+	</Grid>
+</UserControl>

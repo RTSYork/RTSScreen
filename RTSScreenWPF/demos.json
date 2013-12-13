@@ -1,0 +1,25 @@
+[
+	{
+		"title": "Guitar Hero on FPGA",
+		"description": "The Autocaster is an embedded system based around a Digilent Atlys FPGA board, developed by Russell Joyce as a final year project for the MEng Computer Science with Embedded Systems Engineering course.\n\nThe project's original title was 'Guitar Hero on FPGA', which evolved into a system that can autonomously play both Rock Band and Guitar Hero games running on a PlayStation 3.\n\nThe demo above shows the real-time controller output of the system while monitoring the HDMI graphics from a games console, as well as a stream of the video feed from the FPGA board.",
+		"image": "atlys.jpg",
+		"type": "graphics+console",
+		"options": {
+		    "graphics_width": 440,
+		    "graphics_height": 360
+		},
+		"duration": 120,
+		"port": 61453
+	},
+	{
+		"title": "Ultrasonic Array for Maze Robot",
+		"description": "The ultrasonic maze robot was developed by Phil Greenland for a final year project in Computer Science with Embedded Systems Engineering, with the aim of creating a robot to navigate a maze using ultrasonic sensors.\n\nThe system developed consists of four main components: an FPGA development board which can be seen sat on top of the platform; a mobile platform on which everything is mounted; sensor boards which perform the ultrasound generation and capture as part of the ultrasonic imaging system; and a mainboard which provides an interface between the FPGA, mobile platform and sensor boards while containing additional hardware required by the ultrasonic imaging system.",
+		"image": "usrobot.jpg",
+		"type": "video",
+        "options": {
+            "video_id": "m_UIUqkca68"
+        },
+        "duration": 53,
+		"port": 0
+	}
+]
