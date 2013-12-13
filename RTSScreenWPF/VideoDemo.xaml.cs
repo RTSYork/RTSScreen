@@ -56,9 +56,10 @@ namespace RTSScreenWPF
             browser.Cursor = Cursors.None;
             browser.IsEnabled = false;
 		}
-
+        
         void browser_LoadCompleted(object sender, CefSharp.LoadCompletedEventArgs url)
         {
+            /*
             try
             {
                 if (url.Url != "about:blank")
@@ -92,6 +93,7 @@ namespace RTSScreenWPF
                 }
                 File.AppendAllText("log.txt", sb.ToString());
             }
+            */
         }
 	}
 }
